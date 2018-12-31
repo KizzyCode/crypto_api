@@ -35,6 +35,9 @@ pub trait Cipher {
 
 /// An AEAD extension for `Cipher`
 pub trait AeadCipher: Cipher {
+	/// The AEAD tag length
+	fn aead_tag_length(&self) -> usize;
+	
 	/// AEAD-seals `plaintext_len` bytes in-place in `buf` together with `ad` using `key` and
 	/// `nonce` and returns the ciphertext length
 	fn seal(&self, buf: impl AsMut<[u8]>, plaintext_len: usize, ad: impl AsRef<[u8]>,
