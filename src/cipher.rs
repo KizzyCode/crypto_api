@@ -27,26 +27,26 @@ pub trait Cipher {
 	
 	/// Encrypts `plaintext_len` bytes in-place in `buf` using `key` and `nonce` and returns the
 	/// ciphertext length
-	fn encrypt(&self, buf: impl AsMut<[u8]>, plaintext_len: usize, key: impl AsRef<[u8]>,
-		nonce: impl AsRef<[u8]>) -> Result<usize, Box<Error>>;
+	fn encrypt(&self, buf: &mut[u8], plaintext_len: usize, key: &[u8], nonce: &[u8])
+		-> Result<usize, Box<Error>>;
 	
 	/// Decrypts `ciphertext_len` bytes in-place in `buf` using `key` and `nonce` and returns the
 	/// plaintext length
-	fn decrypt(&self, buf: impl AsMut<[u8]>, ciphertext_len: usize, key: impl AsRef<[u8]>,
-		nonce: impl AsRef<[u8]>) -> Result<usize, Box<Error>>;
+	fn decrypt(&self, buf: &mut[u8], ciphertext_len: usize, key: &[u8], nonce: &[u8])
+		-> Result<usize, Box<Error>>;
 }
 
 /// An AEAD extension for `Cipher`
 pub trait AeadCipher: Cipher {
 	/// AEAD-seals `plaintext_len` bytes in-place in `buf` together with `ad` using `key` and
 	/// `nonce` and returns the ciphertext length
-	fn seal(&self, buf: impl AsMut<[u8]>, plaintext_len: usize, ad: impl AsRef<[u8]>,
-		key: impl AsRef<[u8]>, nonce: impl AsRef<[u8]>) -> Result<usize, Box<Error>>;
+	fn seal(&self, buf: &mut[u8], plaintext_len: usize, ad: &[u8], key: &[u8], nonce: &[u8])
+		-> Result<usize, Box<Error>>;
 	
 	/// AEAD-opens `ciphertext_len` bytes in-place in `buf` together with `ad` using `key` and
 	/// `nonce` and returns the plaintext length
-	fn open(&self, buf: impl AsMut<[u8]>, ciphertext_len: usize, ad: impl AsRef<[u8]>,
-		key: impl AsRef<[u8]>, nonce: impl AsRef<[u8]>) -> Result<usize, Box<Error>>;
+	fn open(&self, buf: &mut[u8], ciphertext_len: usize, ad: &[u8], key: &[u8], nonce: &[u8])
+		-> Result<usize, Box<Error>>;
 }
 
 
@@ -56,7 +56,7 @@ pub trait StreamingCipher {
 	fn info(&self) -> CipherInfo;
 	
 	/// (Re-)initializes the handle with `key` and `nonce`
-	fn init(&mut self, key: impl AsRef<[u8]>, nonce: impl AsRef<[u8]>) -> Result<(), Box<Error>>;
+	fn init(&mut self, key: &[u8], nonce: &[u8]) -> Result<(), Box<Error>>;
 	
 	/// Processes the bytes in `input` and writes the resulting bytes to `output` and returns the
 	/// amount of bytes written

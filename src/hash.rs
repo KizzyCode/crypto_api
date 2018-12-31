@@ -22,14 +22,13 @@ pub trait Hash {
 	fn info(&self) -> HashInfo;
 	
 	/// Hashes `data` into `buf` and returns the hash length
-	fn hash(&self, buf: impl AsMut<[u8]>, data: impl AsRef<[u8]>) -> Result<usize, Box<Error>>;
+	fn hash(&self, buf: &mut[u8], data: &[u8]) -> Result<usize, Box<Error>>;
 }
 
 /// A variable length extension for `Hash`
 pub trait VarlenHash: Hash {
 	/// Hashes `data` into `buf` and returns the hash length
-	fn varlen_hash(&self, buf: impl AsMut<[u8]>, data: impl AsRef<[u8]>)
-		-> Result<usize, Box<Error>>;
+	fn varlen_hash(&self, buf: &mut[u8], data: &[u8]) -> Result<usize, Box<Error>>;
 }
 
 
@@ -43,7 +42,7 @@ pub trait StreamingHash {
 	/// Adds the data in `input` to the hash state
 	fn update<'a>(&mut self, input: impl Iterator<Item = &'a u8>) -> Result<(), Box<Error>>;
 	/// Computes the hash into `buf` and returns the hash length
-	fn finish(&mut self, buf: impl AsMut<[u8]>) -> Result<usize, Box<Error>>;
+	fn finish(&mut self, buf: &mut[u8]) -> Result<usize, Box<Error>>;
 }
 
 /// A variable length extension for `StreamingHash`

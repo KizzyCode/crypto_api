@@ -25,6 +25,5 @@ pub trait Kdf {
 	fn info(&self) -> KdfInfo;
 	
 	/// Fills `buf` with key bytes derived from `base_key` and `salt`
-	fn derive(&self, buf: impl AsMut<[u8]>, base_key: impl AsRef<[u8]>, salt: impl AsRef<[u8]>)
-		-> Result<(), Box<Error>>;
+	fn derive(&self, buf: &mut[u8], base_key: &[u8], salt: &[u8]) -> Result<(), Box<Error>>;
 }
