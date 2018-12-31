@@ -7,10 +7,10 @@ pub struct CipherInfo {
 	/// The name
 	pub name: &'static str,
 	
-	/// The key size
-	pub key_size: usize,
-	/// The nonce size
-	pub nonce_size: usize
+	/// The key length
+	pub key_len: usize,
+	/// The nonce length
+	pub nonce_len: usize
 }
 
 
