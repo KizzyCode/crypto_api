@@ -10,7 +10,10 @@ pub struct CipherInfo {
 	/// The key length
 	pub key_len: usize,
 	/// The nonce length
-	pub nonce_len: usize
+	pub nonce_len: usize,
+	
+	/// The AEAD tag length if the cipher is an AEAD cipher
+	pub aead_tag_len: Option<usize>
 }
 
 
@@ -35,9 +38,6 @@ pub trait Cipher {
 
 /// An AEAD extension for `Cipher`
 pub trait AeadCipher: Cipher {
-	/// The AEAD tag length
-	fn aead_tag_len(&self) -> usize;
-	
 	/// AEAD-seals `plaintext_len` bytes in-place in `buf` together with `ad` using `key` and
 	/// `nonce` and returns the ciphertext length
 	fn seal(&self, buf: impl AsMut<[u8]>, plaintext_len: usize, ad: impl AsRef<[u8]>,
