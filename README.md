@@ -27,3 +27,8 @@ The following primitives are covered:
  - PBKDF
    - Normal (CPU-hard) PBKDF
    - Memory-hard PBKDF
+ 
+ - RNG
+   - Normal RNG
+   - Seedable RNG
+   - Deterministic RNG
