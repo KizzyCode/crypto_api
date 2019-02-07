@@ -1,4 +1,4 @@
-use ::std::error::Error;
+use std::error::Error;
 
 
 /// Information about a MAC implementation
@@ -23,7 +23,7 @@ pub trait Mac {
 	fn info(&self) -> MacInfo;
 	
 	/// Authenticates `data` into `buf` using `key` and returns the MAC length
-	fn authenticate(&self, buf: &mut[u8], data: &[u8], key: &[u8]) -> Result<usize, Box<Error>>;
+	fn authenticate(&self, buf: &mut[u8], data: &[u8], key: &[u8]) -> Result<usize, Box<dyn Error>>;
 }
 
 
@@ -33,9 +33,9 @@ pub trait StreamingMac {
 	fn info(&self) -> MacInfo;
 	
 	/// (Re-)initializes the MAC state with `key`
-	fn init(&mut self, key: &[u8]) -> Result<(), Box<Error>>;
+	fn init(&mut self, key: &[u8]) -> Result<(), Box<dyn Error>>;
 	/// Adds the data in `input` to the MAC state
-	fn update<'a>(&mut self, data: impl Iterator<Item = &'a u8>) -> Result<(), Box<Error>>;
+	fn update<'a>(&mut self, data: impl Iterator<Item = &'a u8>) -> Result<(), Box<dyn Error>>;
 	/// Computes the MAC into `buf` and returns the MAC length
-	fn finish(&mut self, buf: &mut[u8]) -> Result<usize, Box<Error>>;
+	fn finish(&mut self, buf: &mut[u8]) -> Result<usize, Box<dyn Error>>;
 }

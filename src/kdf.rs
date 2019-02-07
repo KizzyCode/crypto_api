@@ -1,4 +1,4 @@
-use ::std::error::Error;
+use std::error::Error;
 
 
 /// Information about a KDF implementation
@@ -25,5 +25,5 @@ pub trait Kdf {
 	fn info(&self) -> KdfInfo;
 	
 	/// Fills `buf` with key bytes derived from `base_key` and `salt`
-	fn derive(&self, buf: &mut[u8], base_key: &[u8], salt: &[u8]) -> Result<(), Box<Error>>;
+	fn derive(&self, buf: &mut[u8], base_key: &[u8], salt: &[u8]) -> Result<(), Box<dyn Error>>;
 }

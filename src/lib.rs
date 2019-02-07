@@ -11,3 +11,5 @@ pub mod kdf;
 pub mod mac;
 /// PBKDF traits
 pub mod pbkdf;
+/// Random number generator traits
+pub mod rng;
