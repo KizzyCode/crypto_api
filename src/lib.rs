@@ -13,3 +13,5 @@ pub mod mac;
 pub mod pbkdf;
 /// Random number generator traits
 pub mod rng;
+/// Asymmetric signature traits
+pub mod signature;
