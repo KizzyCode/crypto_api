@@ -32,3 +32,6 @@ The following primitives are covered:
    - Normal RNG
    - Seedable RNG
    - Deterministic RNG
+ 
+ - Asymmetric Signer
+   - Normal signer
