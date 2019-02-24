@@ -17,6 +17,11 @@ pub struct PbkdfInfo {
 	/// The maximum supported key length
 	pub password_len_max: usize,
 	
+	/// The minimum supported salt length
+	pub salt_len_min: usize,
+	/// The maximum supported salt length
+	pub salt_len_max: usize,
+	
 	/// The KDFs default CPU cost
 	pub cpu_cost: u64,
 	/// The minimum supported CPU cost
@@ -53,12 +58,13 @@ pub trait Pbkdf {
 	fn info(&self) -> PbkdfInfo;
 	
 	/// Fills `buf` with key bytes derived from `password` parametrized by `cpu_cost`
-	fn derive(&self, buf: &mut[u8], password: &[u8], cpu_cost: u64) -> Result<(), Box<dyn Error>>;
+	fn derive(&self, buf: &mut[u8], password: &[u8], salt: &[u8], cpu_cost: u64)
+		-> Result<(), Box<dyn Error>>;
 }
 
 /// A stateless (oneshot) memory-hard PBKDF interface
 pub trait MemoryHardPbkdf: Pbkdf {
 	/// Fills `buf` with key bytes derived from `password` parametrized by `cpu_cost`
-	fn derive_memory_hard(&self, buf: &mut[u8], password: &[u8], cpu_cost: u64, memory_cost: u64,
-		parallelism: u64) -> Result<(), Box<dyn Error>>;
+	fn derive_memory_hard(&self, buf: &mut[u8], password: &[u8], salt: &[u8], cpu_cost: u64,
+		memory_cost: u64, parallelism: u64) -> Result<(), Box<dyn Error>>;
 }
