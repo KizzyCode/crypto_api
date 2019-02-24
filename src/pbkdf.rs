@@ -18,11 +18,11 @@ pub struct PbkdfInfo {
 	pub password_len_max: usize,
 	
 	/// The KDFs default CPU cost
-	pub cpu_cost: usize,
+	pub cpu_cost: u64,
 	/// The minimum supported CPU cost
-	pub cpu_cost_min: usize,
+	pub cpu_cost_min: u64,
 	/// The maximum supported CPU cost
-	pub cpu_cost_max: usize,
+	pub cpu_cost_max: u64,
 	
 	/// Specific information for memory hard PBKDFs
 	pub memory_hard_pbkdf_info: Option<MemoryHardPbkdfInfo>
@@ -32,18 +32,18 @@ pub struct PbkdfInfo {
 #[derive(Debug, Eq, PartialEq, Copy, Clone)]
 pub struct MemoryHardPbkdfInfo {
 	/// The KDFs default memory cost
-	pub memory_cost: usize,
+	pub memory_cost: u64,
 	/// The minimum supported memory cost
-	pub memory_cost_min: usize,
+	pub memory_cost_min: u64,
 	/// The maximum supported memory cost
-	pub memory_cost_max: usize,
+	pub memory_cost_max: u64,
 	
 	/// The KDFs default parallelism
-	pub parallelism: usize,
+	pub parallelism: u64,
 	/// The minimum supported parallelism
-	pub parallelism_min: usize,
+	pub parallelism_min: u64,
 	/// The maximum supported parallelism
-	pub parallelism_max: usize
+	pub parallelism_max: u64
 }
 
 
