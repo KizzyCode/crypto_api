@@ -1,3 +1,4 @@
+use crate::rng::SecKeyGen;
 use std::error::Error;
 
 
@@ -18,7 +19,7 @@ pub struct MacInfo {
 
 
 /// A stateless (oneshot) MAC interface
-pub trait Mac {
+pub trait Mac: SecKeyGen {
 	/// Returns information about the MAC
 	fn info(&self) -> MacInfo;
 	
@@ -28,7 +29,7 @@ pub trait Mac {
 
 
 /// A stateful (streaming) MAC interface
-pub trait StreamingMac {
+pub trait StreamingMac: SecKeyGen {
 	/// Returns information about the MAC
 	fn info(&self) -> MacInfo;
 	

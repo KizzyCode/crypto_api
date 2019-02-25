@@ -1,3 +1,4 @@
+use crate::rng::SecKeyGen;
 use std::error::Error;
 
 
@@ -18,7 +19,7 @@ pub struct CipherInfo {
 
 
 /// A stateless (oneshot) cipher interface
-pub trait Cipher {
+pub trait Cipher: SecKeyGen {
 	/// Returns information about the cipher
 	fn info(&self) -> CipherInfo;
 	
@@ -51,7 +52,7 @@ pub trait AeadCipher: Cipher {
 
 
 /// A stateful (streaming) cipher interface
-pub trait StreamingCipher {
+pub trait StreamingCipher: SecKeyGen {
 	/// Returns information about the cipher
 	fn info(&self) -> CipherInfo;
 	

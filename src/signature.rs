@@ -1,3 +1,4 @@
+use crate::rng::{ SecKeyGen, PubKeyGen };
 use std::error::Error;
 
 
@@ -18,17 +19,14 @@ pub struct SignatureInfo {
 
 
 /// A stateless (oneshot) signature interface
-pub trait Signer {
+pub trait Signer: SecKeyGen + PubKeyGen {
 	/// Returns information about the MAC
 	fn info(&self) -> SignatureInfo;
 	
-	/// Creates a new random private key and stores it in `buf` and returns the private key length
-	fn create_sec_key(&self, buf: &mut[u8]) -> Result<usize, Box<dyn Error + 'static>>;
-	/// Writes the public key for `sec_key` into `buf` and returns the public key length
-	fn get_pub_key(&self, buf: &mut[u8], sec_key: &[u8]) -> Result<usize, Box<dyn Error + 'static>>;
-	
-	/// Signs `data` into `buf` using `key` and returns the signature length
-	fn sign(&self, buf: &mut[u8], data: &[u8], sec_key: &[u8]) -> Result<usize, Box<dyn Error + 'static>>;
-	/// Verifies `sig` for `data` with `pub_key` and returns `true` if the signature was valid
-	fn verify(&self, data: &[u8], sig: &[u8], pub_key: &[u8]) -> Result<bool, Box<dyn Error + 'static>>;
+	/// Signs `data` into `buf` using `secret_key` and returns the signature length
+	fn sign(&self, buf: &mut[u8], data: &[u8], secret_key: &[u8])
+		-> Result<usize, Box<dyn Error + 'static>>;
+	/// Verifies `sig` for `data` with `public_key` and returns `true` if the signature was valid
+	fn verify(&self, data: &[u8], sig: &[u8], public_key: &[u8])
+		-> Result<bool, Box<dyn Error + 'static>>;
 }
