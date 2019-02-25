@@ -22,13 +22,13 @@ pub trait Hash {
 	fn info(&self) -> HashInfo;
 	
 	/// Hashes `data` into `buf` and returns the hash length
-	fn hash(&self, buf: &mut[u8], data: &[u8]) -> Result<usize, Box<dyn Error>>;
+	fn hash(&self, buf: &mut[u8], data: &[u8]) -> Result<usize, Box<dyn Error + 'static>>;
 }
 
 /// A variable length extension for `Hash`
 pub trait VarlenHash: Hash {
 	/// Hashes `data` into `buf` and returns the hash length
-	fn varlen_hash(&self, buf: &mut[u8], data: &[u8]) -> Result<usize, Box<dyn Error>>;
+	fn varlen_hash(&self, buf: &mut[u8], data: &[u8]) -> Result<usize, Box<dyn Error + 'static>>;
 }
 
 
@@ -38,15 +38,15 @@ pub trait StreamingHash {
 	fn info(&self) -> HashInfo;
 	
 	/// (Re-)initializes the hash state
-	fn init(&mut self) -> Result<(), Box<dyn Error>>;
+	fn init(&mut self) -> Result<(), Box<dyn Error + 'static>>;
 	/// Adds the data in `input` to the hash state
-	fn update<'a>(&mut self, input: impl Iterator<Item = &'a u8>) -> Result<(), Box<dyn Error>>;
+	fn update<'a>(&mut self, input: impl Iterator<Item = &'a u8>) -> Result<(), Box<dyn Error + 'static>>;
 	/// Computes the hash into `buf` and returns the hash length
-	fn finish(&mut self, buf: &mut[u8]) -> Result<usize, Box<dyn Error>>;
+	fn finish(&mut self, buf: &mut[u8]) -> Result<usize, Box<dyn Error + 'static>>;
 }
 
 /// A variable length extension for `StreamingHash`
 pub trait StreamingVarlenHash: StreamingHash {
 	/// (Re-)initializes the hash state to produce an `hash_len`-sized hash
-	fn varlen_init(&mut self, hash_len: usize) -> Result<(), Box<dyn Error>>;
+	fn varlen_init(&mut self, hash_len: usize) -> Result<(), Box<dyn Error + 'static>>;
 }

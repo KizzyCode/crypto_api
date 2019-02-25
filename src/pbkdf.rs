@@ -59,12 +59,12 @@ pub trait Pbkdf {
 	
 	/// Fills `buf` with key bytes derived from `password` parametrized by `cpu_cost`
 	fn derive(&self, buf: &mut[u8], password: &[u8], salt: &[u8], cpu_cost: u64)
-		-> Result<(), Box<dyn Error>>;
+		-> Result<(), Box<dyn Error + 'static>>;
 }
 
 /// A stateless (oneshot) memory-hard PBKDF interface
 pub trait MemoryHardPbkdf: Pbkdf {
 	/// Fills `buf` with key bytes derived from `password` parametrized by `cpu_cost`
 	fn derive_memory_hard(&self, buf: &mut[u8], password: &[u8], salt: &[u8], cpu_cost: u64,
-		memory_cost: u64, parallelism: u64) -> Result<(), Box<dyn Error>>;
+		memory_cost: u64, parallelism: u64) -> Result<(), Box<dyn Error + 'static>>;
 }
