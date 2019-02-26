@@ -66,11 +66,13 @@ pub trait StreamingCipher: SecKeyGen {
 	
 	/// Finishes the operation and writes the pending bytes to `output` and returns the amount of
 	/// bytes written
-	fn finish<'a>(&mut self, output: impl Iterator<Item = &'a mut u8>) -> Result<usize, Box<dyn Error + 'static>>;
+	fn finish<'a>(&mut self, output: impl Iterator<Item = &'a mut u8>)
+		-> Result<usize, Box<dyn Error + 'static>>;
 }
 
 /// An AEAD extension for `StreamingCipher`
 pub trait StreamingAeadCipher: StreamingCipher {
 	/// Adds the additional data in `ad_input` to the AEAD state
-	fn update_ad<'a>(&mut self, ad_input: impl Iterator<Item = &'a u8>) -> Result<(), Box<dyn Error + 'static>>;
+	fn update_ad<'a>(&mut self, ad_input: impl Iterator<Item = &'a u8>)
+		-> Result<(), Box<dyn Error + 'static>>;
 }
