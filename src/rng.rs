@@ -32,5 +32,5 @@ pub trait SecKeyGen {
 /// A algorithm specific trait to compute a public key from a secret key
 pub trait PubKeyGen {
 	/// Computes the public key from `sec_key` into `buf` and returns the length of the public key
-	fn get_pub_key(&self, buf: &mut[u8], sec_key: &[u8]) -> Result<(), Box<dyn Error + 'static>>;
+	fn get_pub_key(&self, buf: &mut[u8], sec_key: &[u8]) -> Result<usize, Box<dyn Error + 'static>>;
 }
