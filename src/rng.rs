@@ -26,13 +26,11 @@ pub trait DeterministicRng: Rng {
 /// A algorithm specific key generator to generate a (secret) key
 pub trait SecKeyGen {
 	/// Generates a new key into `buf` and returns the length of the secret key
-	fn new_secret_key(&self, buf: &mut[u8]) -> Result<usize, Box<dyn Error + 'static>>;
+	fn new_sec_key(&self, buf: &mut[u8]) -> Result<usize, Box<dyn Error + 'static>>;
 }
 
 /// A algorithm specific trait to compute a public key from a secret key
 pub trait PubKeyGen {
-	/// Computes the public key from `secret_key` into `buf` and returns the length of the public
-	/// key
-	fn get_public_key(&self, buf: &mut[u8], secret_key: &[u8])
-		-> Result<(), Box<dyn Error + 'static>>;
+	/// Computes the public key from `sec_key` into `buf` and returns the length of the public key
+	fn get_pub_key(&self, buf: &mut[u8], sec_key: &[u8]) -> Result<(), Box<dyn Error + 'static>>;
 }

@@ -12,9 +12,9 @@ pub struct SignerInfo {
 	pub signature_len: usize,
 	
 	/// The length of the private key part
-	pub sec_key_length: usize,
+	pub sec_key_len: usize,
 	/// The length of the public key
-	pub pub_key_length: usize
+	pub pub_key_len: usize
 }
 
 
@@ -23,10 +23,10 @@ pub trait Signer: SecKeyGen + PubKeyGen {
 	/// Returns information about the signer
 	fn info(&self) -> SignerInfo;
 	
-	/// Signs `data` into `buf` using `secret_key` and returns the signature length
-	fn sign(&self, buf: &mut[u8], data: &[u8], secret_key: &[u8])
+	/// Signs `data` into `buf` using `sec_key` and returns the signature length
+	fn sign(&self, buf: &mut[u8], data: &[u8], sec_key: &[u8])
 		-> Result<usize, Box<dyn Error + 'static>>;
-	/// Verifies `sig` for `data` with `public_key` and returns `true` if the signature was valid
-	fn verify(&self, data: &[u8], sig: &[u8], public_key: &[u8])
+	/// Verifies `sig` for `data` with `pub_key` and returns `true` if the signature was valid
+	fn verify(&self, data: &[u8], sig: &[u8], pub_key: &[u8])
 		-> Result<bool, Box<dyn Error + 'static>>;
 }
