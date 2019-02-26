@@ -26,7 +26,8 @@ pub trait Signer: SecKeyGen + PubKeyGen {
 	/// Signs `data` into `buf` using `sec_key` and returns the signature length
 	fn sign(&self, buf: &mut[u8], data: &[u8], sec_key: &[u8])
 		-> Result<usize, Box<dyn Error + 'static>>;
-	/// Verifies `sig` for `data` with `pub_key` and returns `true` if the signature was valid
+	/// Verifies `sig` for `data` with `pub_key` and returns an errior if the signature was
+	/// __invalid__
 	fn verify(&self, data: &[u8], sig: &[u8], pub_key: &[u8])
-		-> Result<bool, Box<dyn Error + 'static>>;
+		-> Result<(), Box<dyn Error + 'static>>;
 }
