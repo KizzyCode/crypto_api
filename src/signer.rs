@@ -9,7 +9,7 @@ pub struct SignerInfo {
 	pub name: &'static str,
 	
 	/// The signature length
-	pub signature_len: usize,
+	pub sig_len: usize,
 	
 	/// The length of the private key part
 	pub sec_key_len: usize,
