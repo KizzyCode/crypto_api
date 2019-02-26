@@ -4,7 +4,7 @@ use std::error::Error;
 
 /// Information about a signature implementation
 #[derive(Debug, Eq, PartialEq, Copy, Clone)]
-pub struct SignatureInfo {
+pub struct SignerInfo {
 	/// The name
 	pub name: &'static str,
 	
@@ -20,8 +20,8 @@ pub struct SignatureInfo {
 
 /// A stateless (oneshot) signature interface
 pub trait Signer: SecKeyGen + PubKeyGen {
-	/// Returns information about the MAC
-	fn info(&self) -> SignatureInfo;
+	/// Returns information about the signer
+	fn info(&self) -> SignerInfo;
 	
 	/// Signs `data` into `buf` using `secret_key` and returns the signature length
 	fn sign(&self, buf: &mut[u8], data: &[u8], secret_key: &[u8])
