@@ -29,9 +29,9 @@ The following primitives are covered:
    - Memory-hard PBKDF
  
  - RNG
-   - Normal RNG
-   - Seedable RNG
-   - Deterministic RNG
+   - Cryptographically secure RNG
+   - Cryptographically secure, seedable RNG
+   - Cryptographically secure, deterministic RNG
  
  - Asymmetric Signer
    - Normal signer
