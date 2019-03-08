@@ -37,8 +37,7 @@ pub trait StreamingMac: SecKeyGen {
 	/// (Re-)initializes the MAC state with `key`
 	fn init(&mut self, key: &[u8]) -> Result<(), Box<dyn Error + 'static>>;
 	/// Adds the data in `input` to the MAC state
-	fn update<'a>(&mut self, data: impl Iterator<Item = &'a u8>)
-		-> Result<(), Box<dyn Error + 'static>>;
+	fn update(&mut self, data: &[u8]) -> Result<(), Box<dyn Error + 'static>>;
 	/// Computes the MAC into `buf` and returns the MAC length
 	fn finish(&mut self, buf: &mut[u8]) -> Result<usize, Box<dyn Error + 'static>>;
 }

@@ -40,8 +40,7 @@ pub trait StreamingHash {
 	/// (Re-)initializes the hash state
 	fn init(&mut self) -> Result<(), Box<dyn Error + 'static>>;
 	/// Adds the data in `input` to the hash state
-	fn update<'a>(&mut self, input: impl Iterator<Item = &'a u8>)
-		-> Result<(), Box<dyn Error + 'static>>;
+	fn update(&mut self, input: &[u8]) -> Result<(), Box<dyn Error + 'static>>;
 	/// Computes the hash into `buf` and returns the hash length
 	fn finish(&mut self, buf: &mut[u8]) -> Result<usize, Box<dyn Error + 'static>>;
 }

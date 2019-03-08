@@ -1,5 +1,5 @@
 use crate::rng::SecKeyGen;
-use std::error::Error;
+use std::{ error::Error, io::Write };
 
 
 /// Information about a cipher implementation
@@ -74,17 +74,15 @@ pub trait StreamingCipher: SecKeyGen {
 	fn init(&mut self, key: &[u8], nonce: &[u8]) -> Result<(), Box<dyn Error + 'static>>;
 	/// Processes the bytes in `input` and writes the resulting bytes to `output` and returns the
 	/// amount of bytes written
-	fn update<'a>(&mut self, input: impl Iterator<Item = &'a u8>,
-		output: impl Iterator<Item = &'a mut u8>) -> Result<usize, Box<dyn Error + 'static>>;
+	fn update(&mut self, input: &[u8], output: impl Write)
+		-> Result<usize, Box<dyn Error + 'static>>;
 	/// Finishes the operation and writes the pending bytes to `output` and returns the amount of
 	/// bytes written
-	fn finish<'a>(&mut self, output: impl Iterator<Item = &'a mut u8>)
-		-> Result<usize, Box<dyn Error + 'static>>;
+	fn finish(&mut self, output: impl Write) -> Result<usize, Box<dyn Error + 'static>>;
 }
 
 /// An AEAD extension for `StreamingCipher`
 pub trait StreamingAeadCipher: StreamingCipher {
 	/// Adds the additional data in `ad_input` to the AEAD state
-	fn update_ad<'a>(&mut self, ad_input: impl Iterator<Item = &'a u8>)
-		-> Result<(), Box<dyn Error + 'static>>;
+	fn update_ad<'a>(&mut self, ad_input: &[u8]) -> Result<(), Box<dyn Error + 'static>>;
 }
