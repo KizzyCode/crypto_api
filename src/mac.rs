@@ -8,6 +8,9 @@ pub struct MacInfo {
 	/// The name
 	pub name: &'static str,
 	
+	/// Indicates if this MAC is a one time MAC (= requires a unique key for each message)
+	pub is_one_time_mac: bool,
+	
 	/// The MAC length
 	pub mac_len: usize,
 	
