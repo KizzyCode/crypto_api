@@ -15,7 +15,17 @@ pub struct KdfInfo {
 	/// The minimum supported key length
 	pub key_len_min: usize,
 	/// The maximum supported key length
-	pub key_len_max: usize
+	pub key_len_max: usize,
+	
+	/// The minimum supported salt length
+	pub salt_len_min: usize,
+	/// The maximum supported salt length
+	pub salt_len_max: usize,
+	
+	/// The minimum supported info length
+	pub info_len_min: usize,
+	/// The maximum supported info length
+	pub info_len_max: usize
 }
 
 
