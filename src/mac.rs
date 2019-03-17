@@ -1,23 +1,20 @@
 use crate::rng::SecKeyGen;
-use std::error::Error;
+use std::{ error::Error, ops::Range };
 
 
 /// Information about a MAC implementation
-#[derive(Debug, Eq, PartialEq, Copy, Clone)]
+#[derive(Debug, Eq, PartialEq, Clone)]
 pub struct MacInfo {
 	/// The name
 	pub name: &'static str,
 	
 	/// Indicates if this MAC is a one time MAC (= requires a unique key for each message)
-	pub is_one_time_mac: bool,
+	pub is_otm: bool,
 	
-	/// The MAC length
-	pub mac_len: usize,
-	
-	/// The minimum supported key length
-	pub key_len_min: usize,
-	/// The maximum supported key length
-	pub key_len_max: usize
+	/// The supported MAC lengths
+	pub mac_len_r: Range<usize>,
+	/// The supported key lengths
+	pub key_len_r: Range<usize>
 }
 
 

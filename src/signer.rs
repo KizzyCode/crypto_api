@@ -1,20 +1,19 @@
 use crate::rng::{ SecKeyGen, PubKeyGen };
-use std::error::Error;
+use std::{ error::Error, ops::Range };
 
 
 /// Information about a signature implementation
-#[derive(Debug, Eq, PartialEq, Copy, Clone)]
+#[derive(Debug, Eq, PartialEq, Clone)]
 pub struct SignerInfo {
 	/// The name
 	pub name: &'static str,
 	
-	/// The signature length
-	pub sig_len: usize,
-	
-	/// The length of the private key part
-	pub sec_key_len: usize,
-	/// The length of the public key
-	pub pub_key_len: usize
+	/// The supported signature lengths
+	pub sig_len_r: Range<usize>,
+	/// The supported private key lengths
+	pub sec_key_len_r: Range<usize>,
+	/// The supported public key lengths
+	pub pub_key_len_r: Range<usize>
 }
 
 

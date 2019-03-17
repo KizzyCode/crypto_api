@@ -1,31 +1,20 @@
-use std::error::Error;
+use std::{ error::Error, ops::Range };
 
 
 /// Information about a KDF implementation
-#[derive(Debug, Eq, PartialEq, Copy, Clone)]
+#[derive(Debug, Eq, PartialEq, Clone)]
 pub struct KdfInfo {
 	/// The name
 	pub name: &'static str,
 	
-	/// The minimum output length
-	pub output_len_min: usize,
-	/// The maximum output length
-	pub output_len_max: usize,
-	
-	/// The minimum supported key length
-	pub key_len_min: usize,
-	/// The maximum supported key length
-	pub key_len_max: usize,
-	
-	/// The minimum supported salt length
-	pub salt_len_min: usize,
-	/// The maximum supported salt length
-	pub salt_len_max: usize,
-	
-	/// The minimum supported info length
-	pub info_len_min: usize,
-	/// The maximum supported info length
-	pub info_len_max: usize
+	/// The supported output lengths
+	pub output_len_r: Range<usize>,
+	/// The supported key lengths
+	pub key_len_r: Range<usize>,
+	/// The supported salt lengths
+	pub salt_len_r: Range<usize>,
+	/// The supported info lengths
+	pub info_len_r: Range<usize>
 }
 
 

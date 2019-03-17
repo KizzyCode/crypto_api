@@ -1,54 +1,33 @@
-use std::error::Error;
+use std::{ error::Error, ops::Range };
 
 
 /// Information about a PBKDF implementation
-#[derive(Debug, Eq, PartialEq, Copy, Clone)]
+#[derive(Debug, Eq, PartialEq, Clone)]
 pub struct PbkdfInfo {
 	/// The name
 	pub name: &'static str,
 	
-	/// The minimum output length
-	pub output_len_min: usize,
-	/// The maximum output length
-	pub output_len_max: usize,
+	/// The supported output lengths
+	pub output_len_r: Range<usize>,
+	/// The supported password lengths
+	pub password_len_r: Range<usize>,
+	/// The supported password lengths
+	pub salt_len_r: Range<usize>,
 	
-	/// The minimum supported key length
-	pub password_len_min: usize,
-	/// The maximum supported key length
-	pub password_len_max: usize,
-	
-	/// The minimum supported salt length
-	pub salt_len_min: usize,
-	/// The maximum supported salt length
-	pub salt_len_max: usize,
-	
-	/// The KDFs default CPU cost
+	/// The default CPU cost
 	pub cpu_cost: u64,
-	/// The minimum supported CPU cost
-	pub cpu_cost_min: u64,
-	/// The maximum supported CPU cost
-	pub cpu_cost_max: u64,
+	/// The supported CPU costs
+	pub cpu_cost_r: Range<usize>,
 	
-	/// Specific information for memory hard PBKDFs
-	pub memory_hard_pbkdf_info: Option<MemoryHardPbkdfInfo>
-}
-
-/// Information about a memory-hard PBKDF implementation
-#[derive(Debug, Eq, PartialEq, Copy, Clone)]
-pub struct MemoryHardPbkdfInfo {
-	/// The KDFs default memory cost
+	/// The default memory cost (is `0` if the PBKDF is not memory hard)
 	pub memory_cost: u64,
-	/// The minimum supported memory cost
-	pub memory_cost_min: u64,
-	/// The maximum supported memory cost
-	pub memory_cost_max: u64,
+	/// The supported memory costs (is `0..0` if the PBKDF is not memory hard)
+	pub memory_cost_r: Range<u64>,
 	
-	/// The KDFs default parallelism
+	/// The default parallelism (is `0` if the PBKDF does not support parallelism)
 	pub parallelism: u64,
-	/// The minimum supported parallelism
-	pub parallelism_min: u64,
-	/// The maximum supported parallelism
-	pub parallelism_max: u64
+	/// The supported parallelism (is `0..0` if the PBKDF does not support parallelism)
+	pub parallelism_r: Range<u64>
 }
 
 

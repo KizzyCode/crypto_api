@@ -1,18 +1,17 @@
 use std::error::Error;
+use std::ops::Range;
 
 
 /// Information about a hash implementation
-#[derive(Debug, Eq, PartialEq, Copy, Clone)]
+#[derive(Debug, Eq, PartialEq, Clone)]
 pub struct HashInfo {
 	/// The name
 	pub name: &'static str,
 	
-	/// The default hash length
+	/// The default/selected hash length
 	pub hash_len: usize,
-	/// The minimum supported hash length
-	pub hash_len_min: usize,
-	/// The maximum supported hash length
-	pub hash_len_max: usize
+	/// the supported hash lengths
+	pub hash_len_r: Range<usize>
 }
 
 

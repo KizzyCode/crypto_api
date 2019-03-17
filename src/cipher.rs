@@ -1,20 +1,23 @@
 use crate::rng::SecKeyGen;
-use std::{ error::Error, io::Write };
+use std::{ error::Error, io::Write, ops::Range };
 
 
 /// Information about a cipher implementation
-#[derive(Debug, Eq, PartialEq, Copy, Clone)]
+#[derive(Debug, Eq, PartialEq, Clone)]
 pub struct CipherInfo {
 	/// The name
 	pub name: &'static str,
 	
-	/// The key length
-	pub key_len: usize,
-	/// The nonce length
-	pub nonce_len: usize,
+	/// Indicates if this cipher is a one time cipher (= requires a unique key/nonce combination for
+	/// each message)
+	pub is_otc: bool,
 	
-	/// The AEAD tag length if the cipher is an AEAD cipher
-	pub aead_tag_len: Option<usize>
+	/// The supported key lengths
+	pub key_len_r: Range<usize>,
+	/// The supported nonce lengths
+	pub nonce_len_r: Range<usize>,
+	/// The supported AEAD tag lengths (is `0..0` if the cipher is not an AEAD cipher)
+	pub aead_tag_len_r: Range<usize>
 }
 
 
