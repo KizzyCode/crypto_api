@@ -1,6 +1,6 @@
 [package]
 name = "crypto_api"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2018"
 authors = ["Keziah Biermann <development@kizzycode.de>"]
 description = "Defines a general purpose API for various cryptographic primitives"
