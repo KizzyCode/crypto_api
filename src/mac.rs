@@ -52,7 +52,7 @@ pub trait StreamingMac: SecKeyGen {
 }
 
 /// A variable length extension for `StreamingMac`
-pub trait VarlenStreamingMac: StreamingMac {
+pub trait StreamingVarlenMac: StreamingMac {
 	/// (Re-)initializes the MAC state with `key` to produce an `mac_len`-sized hash
 	fn varlen_init(&mut self, mac_len: usize, key: &[u8]) -> Result<(), Box<dyn Error + 'static>>;
 }
